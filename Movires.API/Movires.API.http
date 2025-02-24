@@ -1,0 +1,6 @@
+@Movires.API_HostAddress = http://localhost:5083
+
+GET {{Movires.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
