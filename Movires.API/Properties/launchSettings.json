@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "https": {
+    "Movies.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
