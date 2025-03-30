@@ -4,7 +4,7 @@ namespace Movies.API.Data
 {
     public class MoviesContextSeed
     {
-        public static async Task SeedAsync(MoviesAPIContext moviesContext)
+        public static async Task SeedAsync(MoviesAPIContext moviesContext, ILogger<MoviesAPIContext>? logger)
         {
             if (!moviesContext.Movie.Any())
             {
@@ -93,6 +93,8 @@ namespace Movies.API.Data
                 };
                 await moviesContext.Movie.AddRangeAsync(movies);
                 await moviesContext.SaveChangesAsync();
+
+                logger?.LogInformation($"Movies Database: {nameof(MoviesAPIContext)} seeded.");
             }
         }
 

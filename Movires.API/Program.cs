@@ -12,6 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+await builder.Services
+    .MigrateAsync<MoviesAPIContext>(async (context, service) =>
+    {
+        var logger = service.GetService<ILogger<MoviesAPIContext>>();
+        await MoviesContextSeed.SeedAsync(context, logger);
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,14 +34,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await SeedDatabase(app.Services);
-
 app.Run();
 
-async Task SeedDatabase(IServiceProvider service)
-{
-    await using var scope = service.CreateAsyncScope();
-    var context = scope.ServiceProvider.GetRequiredService<MoviesAPIContext>();
 
-    await MoviesContextSeed.SeedAsync(context);
-}
